@@ -1,20 +1,42 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
 package ejercicio12;
 
-/**
- *
- * @author elcer
- */
-public class Ejercicio12 {
+import java.util.Scanner;
 
-    /**
-     * @param args the command line arguments
-     */
+public class Ejercicio12 {
     public static void main(String[] args) {
-        // TODO code application logic here
+        // Crear un objeto Scanner para capturar la entrada del usuario
+        Scanner scanner = new Scanner(System.in);
+        
+        // Solicitar los datos del trabajador
+        System.out.print("Ingrese el nombre del trabajador: ");
+        String nombre = scanner.nextLine();
+        
+        System.out.print("Ingrese el número de horas trabajadas en la semana: ");
+        int horasTrabajadas = scanner.nextInt();
+        
+        System.out.print("Ingrese el valor por hora normal: ");
+        double valorHoraNormal = scanner.nextDouble();
+        
+        // Variables para los cálculos
+        double salario = 0;
+        int horasExtras = 0;
+        int horasExtrasExcedentesDe8 = 0;
+
+        // Calcular el salario
+        if (horasTrabajadas > 40) {
+            horasExtras = horasTrabajadas - 40;
+            if (horasExtras > 8) {
+                horasExtrasExcedentesDe8 = horasExtras - 8;
+                salario = 40 * valorHoraNormal + 8 * 2 * valorHoraNormal + horasExtrasExcedentesDe8 * 3 * valorHoraNormal;
+            } else {
+                salario = 40 * valorHoraNormal + horasExtras * 2 * valorHoraNormal;
+            }
+        } else {
+            salario = horasTrabajadas * valorHoraNormal;
+        }
+        
+        // Mostrar el resultado
+        System.out.println("\nEl trabajador " + nombre + " devengó: $" + salario);
     }
-    
 }
+
