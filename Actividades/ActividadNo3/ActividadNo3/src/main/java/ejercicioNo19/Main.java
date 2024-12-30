@@ -4,10 +4,6 @@
  */
 package ejercicioNo19;
 
-/**
- *
- * @author juanv
- */
 public class Main {
     public static void main(String[] args) {
         VentanaEjercicioNo19 ventana = new VentanaEjercicioNo19();

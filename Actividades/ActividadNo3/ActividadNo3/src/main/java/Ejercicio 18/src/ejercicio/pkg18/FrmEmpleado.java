@@ -4,10 +4,6 @@
  */
 package ejercicio.pkg18;
 
-/**
- *
- * @author elcer
- */
 public class FrmEmpleado extends javax.swing.JFrame {
 
     /**

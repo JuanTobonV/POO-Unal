@@ -7,7 +7,6 @@ public class Empleado {
     private double valorHora;
     private double porcentajeRetencion;
 
-    // Getters y Setters
     public String getCodigo() { return codigo; }
     public void setCodigo(String codigo) { this.codigo = codigo; }
 
@@ -23,7 +22,7 @@ public class Empleado {
     public double getPorcentajeRetencion() { return porcentajeRetencion; }
     public void setPorcentajeRetencion(double porcentajeRetencion) { this.porcentajeRetencion = porcentajeRetencion; }
 
-    // Métodos de cálculo
+    
     public double calcularSalarioBruto() {
         return horasTrabajadas * valorHora;
     }

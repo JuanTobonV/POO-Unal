@@ -107,6 +107,11 @@ public class FigurasForm extends javax.swing.JFrame {
         });
 
         btnLimpiar.setText("Limpiar");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
 
         btnCalcular.setText("Calcular");
         btnCalcular.addActionListener(new java.awt.event.ActionListener() {
@@ -334,6 +339,27 @@ public class FigurasForm extends javax.swing.JFrame {
     private void txtLadoCuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLadoCuaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtLadoCuaActionPerformed
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        txtAlturaRectang.setText("");
+                
+        txtAlturaTrian.setText("");
+        txtAreaCirc.setText("");
+        txtAreaCua.setText("");
+        txtAreaRectang.setText("");
+        txtAreaTrian.setText("");
+        txtBaseRectang.setText("");
+        txtBaseTrian.setText("");
+        txtHIpotenusa.setText("");
+        txtLadoCua.setText("");
+        txtPerimetroCirc.setText("");
+        txtPerimetroCua.setText("");
+        txtPerimetroRectan.setText("");
+        txtPerimetroTrian.setText("");
+        txtRadioCirc.setText("");
+        lblTipo.setText("");
+        
+    }//GEN-LAST:event_btnLimpiarActionPerformed
 
     /**
      * @param args the command line arguments
