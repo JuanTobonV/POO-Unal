@@ -42,13 +42,12 @@ public class Cuenta {
         saldo += interesMensual;
     }
 
-    public  void aplicandoExtrandoMensual() {
+    public  void aplicandoExtractoMensual() {
         saldo -= comisionMensual;
         calcInteresMensual();
     }
 
-    @Override
-    public String toString() {
+    public String imprimir() {
         return  "INFORMACIÓN DE LA CUENTA" + "\n"+
                 "Saldo: " + saldo + "\n" +
                 "No consignaciones: " + noConsignaciones +"\n"+
