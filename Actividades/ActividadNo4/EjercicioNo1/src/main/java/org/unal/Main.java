@@ -1,17 +1,35 @@
 package org.unal;
 
 import org.unal.models.Cuenta;
+import org.unal.models.CuentaAhorros;
+
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
 
-        Cuenta cuentaJuanito = new Cuenta(13, 20000);
+        Scanner input = new Scanner(System.in);
 
-        cuentaJuanito.consignar(20000);
-        cuentaJuanito.consignar(20000);
-        cuentaJuanito.retirar(2000);
+        System.out.println("Cuenta de ahorros");
+        System.out.print("Ingrese saldo inicial= $");
+        float saldoInicialAhorros = input.nextFloat();
 
-        System.out.println(cuentaJuanito);
+        System.out.print("Ingrese tasa de interés= ");
+        float tasaAhorros = input.nextFloat();
+
+        CuentaAhorros cuenta1 = new CuentaAhorros(tasaAhorros, saldoInicialAhorros);
+
+        System.out.print("Ingresar cantidad a consignar: $");
+
+        float cantidadDepositar = input.nextFloat();
+        cuenta1.consignar(cantidadDepositar);
+
+        System.out.print("Ingresar cantidad a retirar: $");
+        float cantidadRetirar = input.nextFloat();
+
+        cuenta1.retirar(cantidadRetirar);
+        cuenta1.aplicandoExtractoMensual();
+        cuenta1.imprimir();
 
     }
 }

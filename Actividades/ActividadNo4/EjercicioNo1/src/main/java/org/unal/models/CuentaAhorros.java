@@ -45,10 +45,11 @@ public class CuentaAhorros extends Cuenta{
         }
     }
 
-    public String imprimir(){
-        return "Saldo: $" + saldo + "\n" +
-                "Comisión mensual: $" + comisionMensual + "\n" +
-                "Movimientos: " + (noRetiros+noConsignaciones);
+    public void imprimir(){
+        System.out.println( "Saldo: $" + saldo );
+        System.out.println("Comisión mensual: $" + comisionMensual);
+        System.out.println("Movimientos: " + (noRetiros+noConsignaciones));
+
 
     }
 

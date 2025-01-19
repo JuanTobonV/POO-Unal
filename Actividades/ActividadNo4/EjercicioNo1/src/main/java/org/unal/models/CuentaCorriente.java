@@ -39,4 +39,16 @@ public class CuentaCorriente extends Cuenta{
         }
     }
 
+    public void extractoMensual(){
+        super.aplicandoExtractoMensual();
+    }
+
+    public void imprimir(){
+        System.out.println("Saldo: $" + saldo + "\n");
+        System.out.println("Cargo mensual: $" + comisionMensual + "\n");
+        System.out.println("No transacciones: " + (noConsignaciones + noRetiros));
+
+
+
+    }
 }

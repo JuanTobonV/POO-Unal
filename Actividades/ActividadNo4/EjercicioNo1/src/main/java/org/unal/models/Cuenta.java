@@ -47,11 +47,12 @@ public class Cuenta {
         calcInteresMensual();
     }
 
-    public String imprimir() {
-        return  "INFORMACIÓN DE LA CUENTA" + "\n"+
-                "Saldo: " + saldo + "\n" +
-                "No consignaciones: " + noConsignaciones +"\n"+
-                "No retiros " + noRetiros + "\n" +
-                "Tasa Anual: " + tasaAnual + "\n";
+    public void imprimir() {
+
+        System.out.println("INFORMACIÓN DE LA CUENTA" + "\n");
+        System.out.println("Saldo: " + saldo + "\n");
+        System.out.println("No consignaciones: " + noConsignaciones +"\n");
+        System.out.println("No retiros " + noRetiros + "\n");
+        System.out.println("Tasa Anual: " + tasaAnual + "\n");
     }
 }
