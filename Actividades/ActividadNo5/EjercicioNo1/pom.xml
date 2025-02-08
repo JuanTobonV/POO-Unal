@@ -8,6 +8,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>17</maven.compiler.release>
-        <exec.mainClass>com.unal.Mavenproject1</exec.mainClass>
+        <exec.mainClass>com.unal.ejercicioNo1</exec.mainClass>
     </properties>
+    <name>EjercicioNo1</name>
 </project>

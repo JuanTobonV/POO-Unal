@@ -8,9 +8,10 @@ package com.unal;
  *
  * @author juanv
  */
-public class Mavenproject1 {
+public class ejercicioNo1 {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        NotasView ventana = new NotasView();
+        ventana.setVisible(true);
     }
 }
