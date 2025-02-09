@@ -8,7 +8,7 @@ package com.unal;
  *
  * @author juanv
  */
-public class ejercicioNo1 {
+public class EjercicioNo1 {
 
     public static void main(String[] args) {
         NotasView ventana = new NotasView();
