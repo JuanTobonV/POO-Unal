@@ -34,9 +34,9 @@ public class NotasView extends javax.swing.JFrame {
         notaTres = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        NotaCuatro = new javax.swing.JTextField();
+        notaCuatro = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        NotaCinco = new javax.swing.JTextField();
+        notaCinco = new javax.swing.JTextField();
         btnCalcular = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         promedioNotas = new javax.swing.JTextField();
@@ -162,11 +162,11 @@ public class NotasView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
-                    .addComponent(NotaCuatro, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(notaCuatro, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
-                    .addComponent(NotaCinco, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(notaCinco, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -177,11 +177,11 @@ public class NotasView extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(NotaCinco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(notaCinco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(NotaCuatro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(notaCuatro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -240,47 +240,19 @@ public class NotasView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcularActionPerformed
-        double notaUno = Double.parseDouble(this.notaUno.getText());
-        double notaDos = Double.parseDouble(this.notaDos.getText());
-        double notaTres = Double.parseDouble(this.notaTres.getText());
-        double notaCuatro = Double.parseDouble(this.NotaCuatro.getText());
-        double notaCinco = Double.parseDouble(this.NotaCinco.getText());
+        Notas listaNotas = new Notas();
         
-        double[] arregloNotas = {notaUno,notaDos, notaTres, notaCuatro, notaCinco};
+        listaNotas.notas[0] = Double.parseDouble(notaUno.getText());
+        listaNotas.notas[1] = Double.parseDouble(notaDos.getText());
+        listaNotas.notas[2] = Double.parseDouble(notaTres.getText());
+        listaNotas.notas[3] = Double.parseDouble(notaCuatro.getText());
+        listaNotas.notas[4] = Double.parseDouble(notaCinco.getText());
         
-        double promedio = (notaUno + notaDos + notaTres + notaCuatro + notaCinco) / 5;
-        promedioNotas.setText(String.valueOf(promedio));
-           
-       
-        double sumatoria = Math.pow(notaUno - promedio, 2) + 
-                   Math.pow(notaDos - promedio, 2) + 
-                   Math.pow(notaTres - promedio, 2) + 
-                   Math.pow(notaCuatro - promedio, 2) + 
-                   Math.pow(notaCinco - promedio, 2);
+        promedioNotas.setText(String.valueOf(listaNotas.calcularPromedio()));
+        desvEstandar.setText(String.format("%.2f",listaNotas.desvEstandar()));
+        mayorNota.setText(String.valueOf(listaNotas.calcularMayor()));
+        menorNota.setText(String.valueOf(listaNotas.calcularMenor()));
 
-        double desviacionEstandar = Math.sqrt(sumatoria / 5);
-        desvEstandar.setText(String.format("%.2f", desviacionEstandar));
-        
-        double mayorNotaResultado = arregloNotas[0];
-        double menorNotaResultado = arregloNotas[0];
-        
-        for (int i = 1; i < arregloNotas.length;i++){
-            if(arregloNotas[i] > mayorNotaResultado){
-                mayorNotaResultado = arregloNotas[i];
-            }
-            else{
-                menorNotaResultado = arregloNotas[i];
-            }
-        };
-        
-        
-        mayorNota.setText(String.valueOf(mayorNotaResultado));
-        menorNota.setText(String.valueOf(menorNotaResultado));
-        
-        
-        
-        
-        
     }//GEN-LAST:event_btnCalcularActionPerformed
 
     private void promedioNotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_promedioNotasActionPerformed
@@ -307,8 +279,8 @@ public class NotasView extends javax.swing.JFrame {
         notaUno.setText("");
         notaDos.setText("");
         notaTres.setText("");
-        NotaCuatro.setText("");
-        NotaCinco.setText("");
+        notaCuatro.setText("");
+        notaCinco.setText("");
         promedioNotas.setText("");
         desvEstandar.setText("");
         mayorNota.setText("");
@@ -352,8 +324,6 @@ public class NotasView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField NotaCinco;
-    private javax.swing.JTextField NotaCuatro;
     private javax.swing.JButton btnCalcular;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JTextField desvEstandar;
@@ -369,6 +339,8 @@ public class NotasView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField mayorNota;
     private javax.swing.JTextField menorNota;
+    private javax.swing.JTextField notaCinco;
+    private javax.swing.JTextField notaCuatro;
     private javax.swing.JTextField notaDos;
     private javax.swing.JTextField notaTres;
     private javax.swing.JTextField notaUno;
