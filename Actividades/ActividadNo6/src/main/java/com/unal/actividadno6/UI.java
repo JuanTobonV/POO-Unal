@@ -399,7 +399,7 @@ public class UI extends javax.swing.JFrame {
                 // Deleting the temporary file
                 tmpFile.delete();
  
-                System.out.println(" Friend updated. ");
+                txtEstado.setText(" Friend updated. ");
             }
  
             // The contact to be updated
