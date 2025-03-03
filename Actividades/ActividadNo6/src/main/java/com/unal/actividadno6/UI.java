@@ -5,6 +5,7 @@
 package com.unal.actividadno6;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.RandomAccess;
 
@@ -98,6 +99,11 @@ public class UI extends javax.swing.JFrame {
         });
 
         btnClear.setText("Clear");
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearActionPerformed(evt);
+            }
+        });
 
         txtEstado.setText("Escoje una opcion");
 
@@ -220,6 +226,60 @@ public class UI extends javax.swing.JFrame {
 
     private void btnReadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReadActionPerformed
         try {
+    String nameNumberString;
+    String nameInput = lblNombre.getText();
+    long number;
+    
+    lblNumero.setText("");
+    txtEstado.setText("Usuario no encontrado");
+
+    File file = new File("friendsContact.txt");
+
+    if (!file.exists()) {
+        file.createNewFile();
+    }
+
+    RandomAccessFile raf = new RandomAccessFile(file, "rw");
+    
+    while (raf.getFilePointer() < raf.length()) {
+        nameNumberString = raf.readLine();
+        String[] lineSplit = nameNumberString.split("!");
+
+        if (lineSplit.length < 2) {
+            continue; // Evitar errores si el formato no es correcto
+        }
+
+        String nameFromFile = lineSplit[0].trim();
+        try {
+            number = Long.parseLong(lineSplit[1].trim());
+        } catch (NumberFormatException e) {
+            continue; // Saltar línea malformada
+        }
+
+        if (nameInput.equalsIgnoreCase(nameFromFile)) {
+            lblNumero.setText(Long.toString(number));
+            txtEstado.setText("Usuario encontrado");
+            break;
+        }
+    }
+
+        raf.close(); // Cerrar archivo después de su uso
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+  
+    }//GEN-LAST:event_btnReadActionPerformed
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+         try {
+ 
+            // Get the name of the contact to be updated
+            // from the Command line argument
+            String newName = lblNombre.getText();
+ 
+            // Get the number to be updated
+            // from the Command line argument
+            long newNumber = Long.parseLong(lblNumero.getText());
  
             String nameNumberString;
             String name;
@@ -236,11 +296,12 @@ public class UI extends javax.swing.JFrame {
             }
  
             // Opening file in reading and write mode.
- 
-            RandomAccessFile raf = new RandomAccessFile(file, "rw");
+            RandomAccessFile raf
+                = new RandomAccessFile(file, "rw");
             boolean found = false;
  
-            // Traversing the file
+            // Checking whether the name
+            // of contact already exists.
             // getFilePointer() give the current offset
             // value from start of the file.
             while (raf.getFilePointer() < raf.length()) {
@@ -257,70 +318,111 @@ public class UI extends javax.swing.JFrame {
                 name = lineSplit[0];
                 number = Long.parseLong(lineSplit[1]);
  
-                // Print the contact data
-                System.out.println(
-                    "Friend Name: " + name + "\n"
-                    + "Contact Number: " + number + "\n");
+                // if condition to find existence of record.
+                if (name.equals(newName)
+                    && number == newNumber) {
+                    found = true;
+                    break;
+                }
             }
  
-        }catch (Exception e) {
-            System.out.println(e);
+            // Update the contact if record exists.
+            if (found == true) {
+ 
+                // Creating a temporary file
+                // with file pointer as tmpFile.
+                File tmpFile = new File("temp.txt");
+ 
+                // Opening this temporary file
+                // in ReadWrite Mode
+                RandomAccessFile tmpraf
+                    = new RandomAccessFile(tmpFile, "rw");
+ 
+                // Set file pointer to start
+                raf.seek(0);
+ 
+                // Traversing the friendsContact.txt file
+                while (raf.getFilePointer()
+                       < raf.length()) {
+ 
+                    // Reading the contact from the file
+                    nameNumberString = raf.readLine();
+ 
+                    index = nameNumberString.indexOf('!');
+                    name = nameNumberString.substring(
+                        0, index);
+ 
+                    // Check if the fetched contact
+                    // is the one to be updated
+                    if (name.equals(lblNombre.getText())) {
+ 
+                        // Update the number of this contact
+                        nameNumberString
+                            = name + "!"
+                              + String.valueOf(newNumber);
+                    }
+ 
+                    // Add this contact in the temporary
+                    // file
+                    tmpraf.writeBytes(nameNumberString);
+ 
+                    // Add the line separator in the
+                    // temporary file
+                    tmpraf.writeBytes(
+                        System.lineSeparator());
+                }
+ 
+                // The contact has been updated now
+                // So copy the updated content from
+                // the temporary file to original file.
+ 
+                // Set both files pointers to start
+                raf.seek(0);
+                tmpraf.seek(0);
+ 
+                // Copy the contents from
+                // the temporary file to original file.
+                while (tmpraf.getFilePointer()
+                       < tmpraf.length()) {
+                    raf.writeBytes(tmpraf.readLine());
+                    raf.writeBytes(System.lineSeparator());
+                }
+ 
+                // Set the length of the original file
+                // to that of temporary.
+                raf.setLength(tmpraf.length());
+ 
+                // Closing the resources.
+                tmpraf.close();
+                raf.close();
+ 
+                // Deleting the temporary file
+                tmpFile.delete();
+ 
+                System.out.println(" Friend updated. ");
+            }
+ 
+            // The contact to be updated
+            // could not be found
+            else {
+ 
+                // Closing the resources.
+                raf.close();
+ 
+                // Print the message
+                System.out.println(" Input name"
+                                   + " does not exists. ");
+            }
         }
-  
-    }//GEN-LAST:event_btnReadActionPerformed
-
-    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-         try {
-         String newName = lblNombre.getText();
-         long newNumber = Long.parseLong(lblNumero.getText());
-         String nameNumberString;
-         String name;
-         long number;
-         boolean found = false;
-         
-         File file = new File("friendsContact.txt");
-         if (!file.exists()) {
-             file.createNewFile();
-         }
-
-         RandomAccessFile raf = new RandomAccessFile(file, "rw");
-         File tmpFile = new File("temp.txt");
-         RandomAccessFile tmpRaf = new RandomAccessFile(tmpFile, "rw");
-
-         // Read original file and modify if necessary
-         while (raf.getFilePointer() < raf.length()) {
-             nameNumberString = raf.readLine();
-             String[] lineSplit = nameNumberString.split("!");
-             name = lineSplit[0];
-             number = Long.parseLong(lineSplit[1]);
-
-             // If we find the name to update
-             if (name.equals(newName)) {
-                 nameNumberString = newName + "!" + String.valueOf(newNumber); // Update the record
-                 found = true;
-             }
-             tmpRaf.writeBytes(nameNumberString);
-             tmpRaf.writeBytes(System.lineSeparator());
-         }
-
-         // Replace original file with updated content
-         if (found) {
-             raf.setLength(0); // Clear original file
-             tmpRaf.seek(0); // Go to start of temp file
-             while (tmpRaf.getFilePointer() < tmpRaf.length()) {
-                 raf.writeBytes(tmpRaf.readLine());
-                 raf.writeBytes(System.lineSeparator());
-             }
-             txtEstado.setText("Contacto actualizado");
-         } else {
-             txtEstado.setText("Contacto no encontrado");
-         }
-
-         raf.close();
-         tmpRaf.close();
-     } catch (Exception e) {
-         System.out.println(e);
-     }
+ 
+        catch (IOException ioe) {
+            System.out.println(ioe);
+        }
+ 
+        catch (NumberFormatException nef) {
+            System.out.println(nef);
+        }
+    
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
@@ -372,6 +474,11 @@ public class UI extends javax.swing.JFrame {
          System.out.println(e);
      }
     }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        lblNombre.setText("");
+        lblNumero.setText("");
+    }//GEN-LAST:event_btnClearActionPerformed
 
     /**
      * @param args the command line arguments
